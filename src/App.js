@@ -9,11 +9,17 @@ import {
 import "./App.css";
 import InfoBox from "./InfoBox";
 import Map from "./Map";
+import Table from "./Table";
+import { sortData } from "./util";
+import LineGraph from "./LineGraph";
+import Demo from "./DemoChart";
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("worldWide");
   const [countryInfo, setCountryInfo] = useState({});
+  const [tableData, setTableData] = useState([]);
+  // const [casesType, setCasesType] = useState("cases");
   //https://disease.sh/v3/covid-19/countries
 
   //Useeffect= runs a piece of code based on given condiont
@@ -35,6 +41,8 @@ function App() {
             name: country.country,
             value: country.countryInfo.iso2,
           }));
+          const sortedData = sortData(data);
+          setTableData(sortedData);
           setCountries(countries);
         });
     };
@@ -105,11 +113,15 @@ function App() {
         <Map />
       </div>
       <Card className="app_right">
-        {/*Table*/}
         <CardContent>
-          <h3>Live Cases by Coutry</h3>
-          {/*Graph*/}
-          <h3>worldWide new cases</h3>
+          <div className="app_information">
+            {/*Table*/}
+            <h3>Live Cases by Coutry</h3>
+            <Table countries={tableData} />
+            <h3>Worldwide new cases in chart</h3>
+            {/*Graph*/}
+            <LineGraph />
+          </div>
         </CardContent>
       </Card>
     </div>

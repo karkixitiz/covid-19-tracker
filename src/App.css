@@ -16,7 +16,7 @@ body {
   margin-bottom: 20px;
 }
 .app_left {
-  flex: 0.9;
+  flex: 0.7;
 }
 .app_stats {
   display: flex;
