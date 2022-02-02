@@ -3,9 +3,10 @@ import numeral from "numeral";
 //import { Chart as ChartJS } from "chart.js";
 import { Line } from "react-chartjs-2";
 //ChartJS.register();
+
 const options = {
   legend: {
-    display: true,
+    display: false,
     position: "right",
   },
   elements: {
@@ -49,7 +50,7 @@ const options = {
   },
 };
 
-const buildChartData = (data, casesType = "cases") => {
+const buildChartData = (data, casesType) => {
   const chartData = [];
   let lastDataPoint;
   for (let date in data.cases) {
@@ -64,8 +65,10 @@ const buildChartData = (data, casesType = "cases") => {
   }
   return chartData;
 };
-function LineGraph() {
+
+function LineGraph({ casesType }) {
   const [data, setData] = useState({});
+
   useEffect(() => {
     const fetchData = async () => {
       await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=30")
@@ -73,8 +76,8 @@ function LineGraph() {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
-          let chartData = buildChartData(data, "cases");
+          // console.log(data);
+          let chartData = buildChartData(data, casesType);
           setData(chartData);
           console.log(chartData);
           // buildChart(chartData);
@@ -82,7 +85,7 @@ function LineGraph() {
     };
 
     fetchData();
-  }, []);
+  }, [casesType]);
 
   return (
     <div>
@@ -91,7 +94,7 @@ function LineGraph() {
           data={{
             datasets: [
               {
-                label: "Death Cases",
+                label: "",
                 backgroundColor: "rgba(204, 16, 52, 0.5)",
                 borderColor: "#CC1034",
                 data: data,
