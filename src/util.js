@@ -5,7 +5,7 @@ import { Circle, Popup } from "react-leaflet";
 //Creating a dictionary for showing cases,recovered and deaths in different color
 const casesTypeColors = {
   cases: {
-    hex: "#CC1034",
+    hex: "#220AF8",
     multiplier: 100,
   },
   recovered: {

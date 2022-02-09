@@ -15,7 +15,7 @@ In the project directory, you can run:
 ### `npm test`
 
 ## Calling API
-
+https://disease.sh/docs/
 Get list of affected countries
 https://disease.sh/v3/covid-19/countries
 

@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import numeral from "numeral";
-//import { Chart as ChartJS } from "chart.js";
 import { Line } from "react-chartjs-2";
-//ChartJS.register();
+import numeral from "numeral";
 
 const options = {
   legend: {
     display: false,
-    position: "right",
   },
   elements: {
     point: {
@@ -51,7 +48,7 @@ const options = {
 };
 
 const buildChartData = (data, casesType) => {
-  const chartData = [];
+  let chartData = [];
   let lastDataPoint;
   for (let date in data.cases) {
     if (lastDataPoint) {
@@ -71,15 +68,13 @@ function LineGraph({ casesType }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=30")
+      await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")
         .then((response) => {
           return response.json();
         })
         .then((data) => {
-          // console.log(data);
           let chartData = buildChartData(data, casesType);
           setData(chartData);
-          console.log(chartData);
           // buildChart(chartData);
         });
     };
@@ -94,7 +89,6 @@ function LineGraph({ casesType }) {
           data={{
             datasets: [
               {
-                label: "",
                 backgroundColor: "rgba(204, 16, 52, 0.5)",
                 borderColor: "#CC1034",
                 data: data,
